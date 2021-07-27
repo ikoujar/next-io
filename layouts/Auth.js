@@ -20,32 +20,32 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-export default  function Auth ({children, width = 'xs'}) {
+export default function Auth({children, width = 'xs'}) {
     useAuth({
         redirectTo: '/', redirectIfFound: true
     })
     const classes = useStyles()
     return (
         <div className={classes.root}>
-            <Container component="main" maxWidth={width} >
+            <Container component="main" maxWidth={width}>
                 <CssBaseline/>
-                <Paper className={classes.paper} >
+                <Paper className={classes.paper}>
                     {/* start: Content */}
                     {children}
                     {/* end: Content */}
                     {/* start: Copyright */}
                     <Box mt={5}>
                         <Typography variant="body2" color="textSecondary" align="center">
-                            <FormattedMessage id='copyright' />
+                            <FormattedMessage id='copyright'/>
                             {' '}
                             <Link href="/" passHref>
                                 <MuiLink color="inherit" href="/">
-                                    <FormattedMessage id='app.name' />
+                                    <FormattedMessage id='app.name'/>
                                 </MuiLink>
                             </Link>
                         </Typography>
-                        {/* end: Copyright */}
                     </Box>
+                    {/* end: Copyright */}
                 </Paper>
             </Container>
         </div>

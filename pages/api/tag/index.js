@@ -1,5 +1,5 @@
-import dbConnect from "utils/dbConnect"
-import Tag from "models/tag"
+import dbConnect from 'utils/dbConnect'
+import Tag from 'models/tag'
 
 const handler = async (req, res) => {
     await dbConnect()

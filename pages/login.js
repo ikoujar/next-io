@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
     form:{
         marginTop: theme.spacing(3)
     }
-}));
+}))
 
 export default function Login() {
     const classes = useStyles()
@@ -39,7 +39,7 @@ export default function Login() {
             setHasError(true)
             setLoading(false)
         }
-    };
+    }
 
     return (
         <AuthLayout>

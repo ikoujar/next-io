@@ -1,4 +1,4 @@
-import { AuthLayout  } from 'layouts'
+import { AuthLayout } from 'layouts'
 import { Typography, Avatar, makeStyles, Button, Box, Link as MuiLink } from '@material-ui/core'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -14,10 +14,10 @@ const useStyles = makeStyles((theme) => ({
         margin: theme.spacing(1),
         backgroundColor: theme.palette.primary.main,
     },
-    form:{
+    form: {
         marginTop: theme.spacing(3)
     }
-}));
+}))
 
 export default function Register() {
     const classes = useStyles()
@@ -34,27 +34,27 @@ export default function Register() {
         if (loading) return
         setLoading(true)
         try {
-            await register({ name, email, password })
+            await register({name, email, password})
             router.push('/')
         } catch (e) {
             setHasError(true)
             setLoading(false)
         }
-    };
+    }
 
     return (
         <AuthLayout>
             <Avatar className={classes.avatar}>
-                <LockOutlined />
+                <LockOutlined/>
             </Avatar>
-             <Typography component="h1" variant="h5">
+            <Typography component="h1" variant="h5">
                 <FormattedMessage id={'title.register'}/>
             </Typography>
             {
-                hasError && 
+                hasError &&
                 <Box marginTop={2}>
                     <Alert severity='error'>
-                        <FormattedMessage id={'error.register'} />
+                        <FormattedMessage id={'error.register'}/>
                     </Alert>
                 </Box>
             }
@@ -80,7 +80,7 @@ export default function Register() {
                     autoComplete="password"
                     onChange={setPassword}
                 />
-                <Button 
+                <Button
                     type="submit"
                     variant="contained"
                     color="primary"

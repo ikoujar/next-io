@@ -1,4 +1,4 @@
-import dbConnect from  'utils/dbConnect'
+import dbConnect from 'utils/dbConnect'
 import cookies from 'utils/cookies'
 import User from 'models/user'
 
@@ -8,14 +8,14 @@ const handler = async (req, res) => {
         return
     }
     await dbConnect()
-    const { email, password } = req.body
+    const {email, password} = req.body
 
-    const user = await User.findOne({ email })
-    if (! user?.comparePassword(password)) {
+    const user = await User.findOne({email})
+    if (!user?.comparePassword(password)) {
         return res.status(400).json()
     }
     const result = user.signJwt()
-    res.cookie('accessToken', result.token, { httpOnly: true })
+    res.cookie('accessToken', result.token, {httpOnly: true})
     res.status(200).json()
 }
 

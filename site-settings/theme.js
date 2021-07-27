@@ -1,5 +1,5 @@
-import { createTheme } from '@material-ui/core/styles';
-import { red } from '@material-ui/core/colors';
+import { createTheme } from '@material-ui/core/styles'
+import { red } from '@material-ui/core/colors'
 
 const theme = createTheme({
     direction: 'rtl',
@@ -31,6 +31,6 @@ const theme = createTheme({
             title: '#f4f7f9'
         },
     },
-});
+})
 
-export default theme;
+export default theme

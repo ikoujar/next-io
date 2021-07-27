@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
 
-const { MONGODB_URI } = process.env
+const {MONGODB_URI} = process.env
 
 if (!MONGODB_URI) {
     throw new Error(
@@ -11,7 +11,7 @@ if (!MONGODB_URI) {
 let cached = global.mongoose
 
 if (!cached) {
-    cached = global.mongoose = { conn: null, prmoise: null }
+    cached = global.mongoose = {conn: null, prmoise: null}
 }
 
 async function dbConnect() {
@@ -28,4 +28,5 @@ async function dbConnect() {
     cached.conn = await cached.prmoise
     return cached.conn
 }
+
 export default dbConnect

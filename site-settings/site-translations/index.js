@@ -1,7 +1,7 @@
-import ar from './ar.json';
+import ar from './ar.json'
 
 const langs = {
     ar
- }
+}
 
 export default langs 

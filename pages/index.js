@@ -16,36 +16,36 @@ const useStyles = makeStyles((theme) => ({
     title: {
         flexGrow: 1,
     }
- }))
- 
+}))
+
 export default function Home() {
     const classes = useStyles()
     const router = useRouter()
     const page = router.query.page || 1
     const sort = router.query.sort || -1
-    const { data } = usePosts({ page, sort })
+    const {data} = usePosts({page, sort})
     return (
         <MainLayout>
             <Box className={classes.titleContainer}>
-               <Typography variant="h5" className={classes.title}>
+                <Typography variant="h5" className={classes.title}>
                     <Filters/>
-               </Typography>
-               <Box marginY={'auto'}>
-                   <Link href={'/question/ask'} passHref>
-                       <Button color={'secondary'} variant={'contained'} disableElevation size='small'>
-                           <FormattedMessage id='btn.ask' />
-                       </Button>
-                   </Link>
-               </Box>
-           </Box>
-            <QList items={data?.items || []} />
-            <Pages count={data?.pages} page={Number(page)} />
+                </Typography>
+                <Box marginY={'auto'}>
+                    <Link href={'/question/ask'} passHref>
+                        <Button color={'secondary'} variant={'contained'} disableElevation size='small'>
+                            <FormattedMessage id='btn.ask'/>
+                        </Button>
+                    </Link>
+                </Box>
+            </Box>
+            <QList items={data?.items || []}/>
+            <Pages count={data?.pages} page={Number(page)}/>
         </MainLayout>
     )
 }
 
 function Filters() {
-    const router = useRouter();
+    const router = useRouter()
     const navigate = (sort) => {
         router.push({
             pathname: '/',
@@ -55,11 +55,11 @@ function Filters() {
     return (
         <ButtonGroup size='small'>
             <Button onClick={() => navigate(-1)}>
-                <FormattedMessage id={'btn.newest'} />
+                <FormattedMessage id={'btn.newest'}/>
             </Button>
             <Button onClick={() => navigate(1)}>
-                <FormattedMessage id={'btn.oldest'} />
+                <FormattedMessage id={'btn.oldest'}/>
             </Button>
         </ButtonGroup>
-    );
- }
+    )
+}

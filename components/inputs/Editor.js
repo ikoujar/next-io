@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 
-export default function Editor({onChange, content = ''}) {
+export default function Editor({ onChange, content = '' }) {
+    
     const editorRef = useRef()
     const [editorLoaded, setEditorLoaded] = useState(false)
     const {CKEditor, ClassicEditor} = editorRef.current || {}
@@ -25,8 +26,8 @@ export default function Editor({onChange, content = ''}) {
            }}
            data={content}
            onChange={(event, editor) => {
-               const data = editor.getData();
-                 onChange(data);
+                const data = editor.getData()
+                onChange(data)
            }}
         />
     ) : (

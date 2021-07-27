@@ -3,31 +3,30 @@ import { useEffect } from 'react'
 import useSWR from 'swr'
 import Router from 'next/router'
 
-export const login = params => axios.post('/api/auth/login', params)
-export const register = params => axios.post('/api/auth/register', params)
+const url = '/api/auth'
+
+export const login = params => axios.post(`${url}/login`, params)
+export const register = params => axios.post(`${url}/register`, params)
 export const logout = async (mutate) => {
-   try {
-       await axios.post(`/api/auth/logout`);
-       mutate()
-   } catch (e) {
-       // Error
-   }
-};
-const fetcher = url => axios.get(url).then(({ data }) => data?.data)
+    await axios.post(`${url}/logout`);
+    mutate()
+}
 
-export default function useAuth({ redirectTo = false, redirectIfFound = false } = {}) {
+const fetcher = url => axios.get(url).then(({data}) => data?.data)
 
-    const { data: user, error, mutate } = useSWR('/api/auth/me', fetcher);
+export default function useAuth({redirectTo = false, redirectIfFound = false} = {}) {
+
+    const {data: user, error, mutate} = useSWR(`${url}/me`, fetcher);
 
     useEffect(() => {
         if (error && redirectTo && !redirectIfFound) Router.push(redirectTo);
         if (user && redirectIfFound) Router.push(redirectTo);
-    }, [user, error, redirectTo]);
+    }, [user, error, redirectTo, redirectIfFound]);
 
     return {
         user,
         loading: !user && !error,
         logout: () => logout(mutate)
-    };
+    }
 
 }

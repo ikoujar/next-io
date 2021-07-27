@@ -4,10 +4,10 @@ import Post from 'models/post'
 const handler = async (req, res) => {
 
     if (req.method !== 'POST') return res.status(405).json()
-    
+
     const user = req.user.id
-    
-    const { content, question } = req.body
+
+    const {content, question} = req.body
 
     await Post.create({
         parent: question,

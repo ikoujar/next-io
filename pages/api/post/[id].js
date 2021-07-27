@@ -5,14 +5,14 @@ const handler = async (req, res) => {
 
     await dbConnect()
 
-    const { id } = req.query
+    const {id} = req.query
 
     const question = await Post.findById(id)
         .populate('user', 'name')
         .populate('tags', 'name slug')
         .exec()
 
-    const answers = await Post.find({ parent: id })
+    const answers = await Post.find({parent: id})
         .populate('user', 'name')
         .exec()
 

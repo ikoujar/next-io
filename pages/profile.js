@@ -19,25 +19,25 @@ const useStyles = makeStyles((theme) => ({
     alert: {
         marginBottom: theme.spacing(2),
     },
-}));
+}))
 
 export default function Profile() {
 
     const classes = useStyles()
-   
+
     const [profileData, setProfileData] = useState()
     const [passwordData, setPasswordData] = useState()
-    const [loading, setLoading] = useState({ profile: false, password: false })
-    const [error, setError] = useState({ profile: false, password: false })
+    const [loading, setLoading] = useState({profile: false, password: false})
+    const [error, setError] = useState({profile: false, password: false})
 
-    const { user } = useAuth({
+    const {user} = useAuth({
         redirectTo: '/login', redirectIfFound: false
     })
 
     useEffect(() => {
         if (!user) return
-        const { name, email } = user
-        setProfileData({ name, email })
+        const {name, email} = user
+        setProfileData({name, email})
     }, [user])
 
     const onSubmitProfile = async (event) => {
@@ -50,7 +50,7 @@ export default function Profile() {
             setError({...error, profile: true})
         }
         setLoading({...loading, profile: false})
-    };
+    }
 
     const onSubmitPassword = async (event) => {
         event.preventDefault()
@@ -62,7 +62,7 @@ export default function Profile() {
             setError({...error, password: true})
         }
         setLoading({...loading, password: false})
-    };
+    }
 
     return (
         <MainLayout title='title.profile'>
@@ -94,7 +94,7 @@ export default function Profile() {
                             {
                                 error.profile &&
                                 <Alert severity='error' className={classes.alert}>
-                                    <FormattedMessage id='error.update_profile' />
+                                    <FormattedMessage id='error.update_profile'/>
                                 </Alert>
                             }
                             <Button
@@ -113,7 +113,7 @@ export default function Profile() {
                     {
                         user &&
                         <form className={classes.form} onSubmit={onSubmitPassword}>
-                          
+
                             <TextInput
                                 required
                                 label="input.current_password"
@@ -132,7 +132,7 @@ export default function Profile() {
                             {
                                 error.password &&
                                 <Alert severity='error' className={classes.alert}>
-                                    <FormattedMessage id='error.update_password' />
+                                    <FormattedMessage id='error.update_password'/>
                                 </Alert>
                             }
                             <Button
@@ -149,5 +149,5 @@ export default function Profile() {
                 </Grid>
             </Grid>
         </MainLayout>
-    );
+    )
 }

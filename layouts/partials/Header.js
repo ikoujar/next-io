@@ -6,52 +6,52 @@ import { useRouter } from 'next/router'
 import useAuth from 'hooks/useAuth'
 
 const useStyles = makeStyles((theme) => ({
-   title: {
-       flexGrow: 1,
-       cursor: 'pointer'
-   }
+    title: {
+        flexGrow: 1,
+        cursor: 'pointer'
+    }
 }))
 
 export default function Header() {
-   const classes = useStyles()
-   const { user, logout } = useAuth()
-   return (
-       <AppBar position="static" variant="outlined">
-           <Toolbar>
-               <Link href='/' passHref>
-                   <Typography variant="h6" className={classes.title}>
-                       <FormattedMessage id='app.name' />
-                   </Typography>
-               </Link>
-               {
-                   user ? <UserMenu user={user} logout={logout} /> : <GuestMenu />
-               }
+    const classes = useStyles()
+    const {user, logout} = useAuth()
+    return (
+        <AppBar position="static" variant="outlined">
+            <Toolbar>
+                <Link href='/' passHref>
+                    <Typography variant="h6" className={classes.title}>
+                        <FormattedMessage id='app.name'/>
+                    </Typography>
+                </Link>
+                {
+                    user ? <UserMenu user={user} logout={logout}/> : <GuestMenu/>
+                }
             </Toolbar>
-       </AppBar>
-   );
+        </AppBar>
+    )
 }
 
 function GuestMenu() {
     return (
         <Link href='/login' passHref>
             <Button color="inherit" variant="outlined">
-                <FormattedMessage id={'header.login'} />
+                <FormattedMessage id={'header.login'}/>
             </Button>
         </Link>
     )
- }
- 
- function UserMenu({ user, logout }) {
+}
+
+function UserMenu({user, logout}) {
     const router = useRouter()
     const [menu, setMenu] = useState(null)
     const handleMenu = (event) => setMenu(event.currentTarget)
     const handleClose = () => setMenu(null)
-    
+
     const handleLogout = async () => {
-        setMenu(null);
-        await logout();
-        router.reload();
-     }
+        setMenu(null)
+        await logout()
+        router.reload()
+    }
 
     return (
         <div>
@@ -63,7 +63,7 @@ function GuestMenu() {
                 onClick={handleMenu}
                 color="inherit"
             >
-                <Avatar>{ user.name?.charAt(0) }</Avatar>
+                <Avatar>{user.name?.charAt(0)}</Avatar>
             </IconButton>
             <Menu
                 id="menu-appbar"
@@ -82,14 +82,14 @@ function GuestMenu() {
                 onClose={handleClose}
             >
                 <Link href='/profile' passHref>
-                    <MenuItem >
-                        <FormattedMessage id='header.profile' />
+                    <MenuItem>
+                        <FormattedMessage id='header.profile'/>
                     </MenuItem>
                 </Link>
                 <MenuItem onClick={handleLogout}>
-                    <FormattedMessage id='header.logout' />
+                    <FormattedMessage id='header.logout'/>
                 </MenuItem>
             </Menu>
         </div>
     )
- }
+}

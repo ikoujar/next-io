@@ -1,4 +1,4 @@
-import dbConnect from  'utils/dbConnect'
+import dbConnect from 'utils/dbConnect'
 import cookies from 'utils/cookies'
 import User from 'models/user'
 
@@ -8,14 +8,13 @@ const handler = async (req, res) => {
         return
     }
     await dbConnect()
-    const { name, email, password } = req.body
+    const {name, email, password} = req.body
     try {
-        const user = await User.create({ name, email, password })
+        const user = await User.create({name, email, password})
         const result = user.signJwt()
-        res.cookie('accessToken', result.token, { httpOnly: true })
+        res.cookie('accessToken', result.token, {httpOnly: true})
         res.status(200).json()
     } catch (error) {
-        console.log(error)
         res.status(400).json()
     }
 }

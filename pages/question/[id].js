@@ -23,123 +23,123 @@ const useStyles = makeStyles((theme) => ({
         },
         background: theme.palette.background.title
     }
-}));
+}))
 
-export default function Show({ params }) {
-    
+export default function Show({params}) {
+
     useEffect(() => {
         if (!params?.id) Router.push('/404')
     }, [params])
-    
-    const { data: post, loading, answer, vote } = usePost(params?.id)
-    const { user } = useAuth()
+
+    const {data: post, loading, answer, vote} = usePost(params?.id)
+    const {user} = useAuth()
 
     return (
         <MainLayout title={post?.question?.title} loading={loading}>
             <Head>
-                <title>{ params?.question?.title }</title>
+                <title>{params?.question?.title}</title>
             </Head>
             <Box display='flex' m={2}>
-                <Vote votesTotal={post?.votesTotal} vote={type => vote(post?.id, type)} />
-                <Content html={post?.content} />
+                <Vote votesTotal={post?.votesTotal} vote={type => vote(post?.id, type)}/>
+                <Content html={post?.content}/>
             </Box>
-            <QuestionFooter user={post?.user} tags={post?.tags} />
-            <Answers items={post?.answers} vote={vote} />
+            <QuestionFooter user={post?.user} tags={post?.tags}/>
+            <Answers items={post?.answers} vote={vote}/>
             {
-                user && <AnswerForm onSubmit={answer} />
+                user && <AnswerForm onSubmit={answer}/>
             }
         </MainLayout>
-    );
+    )
 }
 
-function QuestionFooter({ user, tags })     {
+function QuestionFooter({user, tags}) {
     return (
         <Box display="flex" m={2}>
             <Box flexGrow={1} display="flex">
-                <Avatar>{ user?.name?.charAt(0) }</Avatar>
+                <Avatar>{user?.name?.charAt(0)}</Avatar>
                 <Box marginY={'auto'} marginX={1}>
-                    { user?.name }
+                    {user?.name}
                 </Box>
             </Box>
             <Box marginY={'auto'} display="flex">
                 <Tags items={tags}/>
             </Box>
         </Box>
-    );
+    )
 }
 
-function Answer({ data: { id, content, user, createdAt, votesTotal }, vote }){
+function Answer({data: {id, content, user, createdAt, votesTotal}, vote}) {
     return (
         <Box p={2}>
             <Box display="flex">
-                <Vote votesTotal={votesTotal} vote={vote} />
-                <Content html={content} />
+                <Vote votesTotal={votesTotal} vote={vote}/>
+                <Content html={content}/>
             </Box>
             <Box display="flex" marginTop={2}>
-                <Avatar>{ user.name.charAt(0) }</Avatar>
+                <Avatar>{user.name.charAt(0)}</Avatar>
                 <Box marginY={'auto'} marginX={1} flexGrow={1}>
-                    { user.name }
+                    {user.name}
                 </Box>
                 <Typography variant="caption" display="block" marginY={'auto'}>
-                    { moment(createdAt).fromNow()  }
+                    {moment(createdAt).fromNow()}
                 </Typography>
             </Box>
         </Box>
-    );
- }
+    )
+}
 
- function Answers({ items, vote }) {
-    const classes = useStyles();
+function Answers({items, vote}) {
+    const classes = useStyles()
     return (
         <>
             <Box className={classes.answersTitle}>
                 <Typography variant='h6'>
-                    <FormattedMessage id='post.answers' />
+                    <FormattedMessage id='post.answers'/>
                 </Typography>
             </Box>
             <Divider/>
             {
                 items?.map(answer => {
                     return <>
-                        <Answer data={answer} vote={type => vote(answer.id, type)} />
+                        <Answer data={answer} vote={type => vote(answer.id, type)}/>
                         <Divider/>
                     </>
                 })
             }
         </>
     )
- }
+}
 
- function AnswerForm({ onSubmit }) {
-    const classes = useStyles();
-    const [content, setContent] = useState('');
+function AnswerForm({onSubmit}) {
+    const classes = useStyles()
+    const [content, setContent] = useState('')
     const handleSubmit = async () => {
-        await onSubmit({ content })
+        await onSubmit({content})
         setContent('')
     }
     return (
-        <Box p={2} className={classes.answerForm}  >
+        <Box p={2} className={classes.answerForm}>
             <Box>
                 <Editor onChange={setContent} content={content}/>
             </Box>
             <Button color="primary" variant="contained" onClick={handleSubmit}>
-                <FormattedMessage id='btn.share' />
+                <FormattedMessage id='btn.share'/>
             </Button>
         </Box>
     )
- }
+}
 
 export async function getStaticPaths() {
     await dbConnect()
     const items = await Post.find({parent: null}).exec()
-    const paths = items.map(e => ({ params: { id: e.id.toString() } }))
+    const paths = items.map(e => ({params: {id: e.id.toString()}}))
     return {
         paths,
         fallback: true
     }
 }
 
-export async function getStaticProps({ params  }) {
+export async function getStaticProps({params}) {
     await dbConnect()
     let item = await Post.findById(params.id).exec()
     return {
