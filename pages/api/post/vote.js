@@ -1,5 +1,5 @@
 import auth from 'utils/auth';
-import Post from 'models/Post';
+import Post from 'models/post';
 
 const handler = async (req, res) => {
     const user = req.user.id;
